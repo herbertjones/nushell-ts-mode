@@ -51,83 +51,80 @@
   :safe 'integerp
   :group 'nushell)
 
-(defvar nushell-ts-mode--operators nil "Nushell operators for tree-sitter font-locking.")
-(setq nushell-ts-mode--operators
-      '("+"           ; add
-        "-"           ; subtract
-        "*"           ; multiply
-        "/"           ; divide
-        "//"          ; floor division
-        "mod"         ; modulo
-        "**"          ; exponentiation (power)
-        "=="          ; equal
-        "!="          ; not equal
-        "<"           ; less than
-        "<="          ; less than or equal
-        ">"           ; greater than
-        ">="          ; greater than or equal
-        "=~"          ; regex match / string contains another
-        "!~"          ; inverse regex match / string does not contain another
-        "in"          ; value in list
-        "not-in"      ; value not in list
-        "not"         ; logical not
-        "and"         ; and two Boolean expressions (short-circuits)
-        "or"          ; or two Boolean expressions (short-circuits)
-        "xor"         ; exclusive or two boolean expressions
-        "bit-or"      ; bitwise or
-        "bit-xor"     ; bitwise xor
-        "bit-and"     ; bitwise and
-        "bit-shl"     ; bitwise shift left
-        "bit-shr"     ; bitwise shift right
-        "starts-with" ; string starts with
-        "ends-with"   ; string ends with
-        "++"          ; append lists
-        ))
+(defvar nushell-ts-mode--operators
+  '("+"           ; add
+    "-"           ; subtract
+    "*"           ; multiply
+    "/"           ; divide
+    "//"          ; floor division
+    "mod"         ; modulo
+    "**"          ; exponentiation (power)
+    "=="          ; equal
+    "!="          ; not equal
+    "<"           ; less than
+    "<="          ; less than or equal
+    ">"           ; greater than
+    ">="          ; greater than or equal
+    "=~"          ; regex match / string contains another
+    "!~"          ; inverse regex match / string does not contain another
+    "in"          ; value in list
+    "not-in"      ; value not in list
+    "not"         ; logical not
+    "and"         ; and two Boolean expressions (short-circuits)
+    "or"          ; or two Boolean expressions (short-circuits)
+    "xor"         ; exclusive or two boolean expressions
+    "bit-or"      ; bitwise or
+    "bit-xor"     ; bitwise xor
+    "bit-and"     ; bitwise and
+    "bit-shl"     ; bitwise shift left
+    "bit-shr"     ; bitwise shift right
+    "starts-with" ; string starts with
+    "ends-with"   ; string ends with
+    "++")         ; append lists
+  "Nushell operators for tree-sitter font-locking.")
 
-(defvar nushell-ts-mode--keywords)
-(setq nushell-ts-mode--keywords
-      '("alias"
-        "def"
-        "let"
-        "source"))
+(defvar nushell-ts-mode--keywords
+  '("alias"
+    "def"
+    "let"
+    "mut"
+    "source"))
 
-(defvar nushell-ts-mode--types)
-(setq nushell-ts-mode--types
-      '("any"
-        "block"
-        "bool"
-        "cell-path"
-        "cond"
-        "duration"
-        "error"
-        "expr"
-        "filesize"
-        "glob"
-        "int"
-        "list"
-        "math"
-        "number"
-        "operator"
-        "path"
-        "range"
-        "record"
-        "signature"
-        "string"
-        "table"
-        "variable"))
+(defvar nushell-ts-mode--types
+  '("any"
+    "block"
+    "bool"
+    "cell-path"
+    "cond"
+    "duration"
+    "error"
+    "expr"
+    "filesize"
+    "glob"
+    "int"
+    "list"
+    "math"
+    "number"
+    "operator"
+    "path"
+    "range"
+    "record"
+    "signature"
+    "string"
+    "table"
+    "variable"))
 
-(defvar nushell-ts-mode--indent-rules)
-(setq nushell-ts-mode--indent-rules
-      `((nu
-         ((node-is ")") parent-bol 0)
-         ((node-is "]") parent-bol 0)
-         ((node-is "}") parent-bol 0)
-         ((parent-is "block") parent-bol nushell-ts-mode-indent-offset)
-         ((parent-is "string") parent-bol nushell-ts-mode-indent-offset)
-         ((parent-is "array") parent-bol nushell-ts-mode-indent-offset)
-         ((parent-is "val_list") parent-bol nushell-ts-mode-indent-offset)
-         ((parent-is "expr_parenthesized") parent-bol nushell-ts-mode-indent-offset)
-         (no-node parent-bol 0))))
+(defvar nushell-ts-mode--indent-rules
+  `((nu
+     ((node-is ")") parent-bol 0)
+     ((node-is "]") parent-bol 0)
+     ((node-is "}") parent-bol 0)
+     ((parent-is "block") parent-bol nushell-ts-mode-indent-offset)
+     ((parent-is "string") parent-bol nushell-ts-mode-indent-offset)
+     ((parent-is "array") parent-bol nushell-ts-mode-indent-offset)
+     ((parent-is "val_list") parent-bol nushell-ts-mode-indent-offset)
+     ((parent-is "expr_parenthesized") parent-bol nushell-ts-mode-indent-offset)
+     (no-node parent-bol 0))))
 
 (defun nushell-ts-mode--defun-name (node)
   "Return the defun name of NODE.
@@ -143,62 +140,62 @@ Return nil if there is no name or if NODE is not a defun node."
      (treesit-node-text
       (treesit-node-child-by-field-name node "name") t))))
 
-(defvar nushell-ts-mode--font-lock-settings "Font-lock settings for Nushell.")
-(setq nushell-ts-mode--font-lock-settings
-      (treesit-font-lock-rules
-       :language 'nu
-       :feature 'property
-       '((record_entry (identifier) @font-lock-property-name-face))
+(defvar nushell-ts-mode--font-lock-settings
+  (treesit-font-lock-rules
+   :language 'nu
+   :feature 'property
+   '((record_entry (identifier) @font-lock-property-name-face))
 
-       :language 'nu
-       :feature 'comment
-       '([(comment) (shebang)] @font-lock-comment-face)
+   :language 'nu
+   :feature 'comment
+   '([(comment) (shebang)] @font-lock-comment-face)
 
-       :language 'nu
-       :feature 'bracket
-       '((["(" ")" "[" "]" "{" "}"]) @font-lock-bracket-face)
+   :language 'nu
+   :feature 'bracket
+   '((["(" ")" "[" "]" "{" "}"]) @font-lock-bracket-face)
 
-       :language 'nu
-       :feature 'definition
-       '((stmt_let (identifier) @font-lock-variable-name-face)
-         (assignment (val_variable) @font-lock-variable-name-face)
-         (decl_def (cmd_identifier) @font-lock-function-name-face)
-         (parameter (identifier) @font-lock-variable-name-face))
+   :language 'nu
+   :feature 'definition
+   '((stmt_let (identifier) @font-lock-variable-name-face)
+     (assignment (val_variable) @font-lock-variable-name-face)
+     (decl_def (cmd_identifier) @font-lock-function-name-face)
+     (parameter (identifier) @font-lock-variable-name-face))
 
-       :language 'nu
-       :feature 'function
-       '((command (cmd_identifier) @font-lock-function-call-face)
-         (decl_alias (cmd_identifier) @font-lock-function-call-face))
+   :language 'nu
+   :feature 'function
+   '((command (cmd_identifier) @font-lock-function-call-face)
+     (decl_alias (cmd_identifier) @font-lock-function-call-face))
 
-       :language 'nu
-       :feature 'keyword
-       `([,@nushell-ts-mode--keywords] @font-lock-keyword-face)
+   :language 'nu
+   :feature 'keyword
+   `([,@nushell-ts-mode--keywords] @font-lock-keyword-face)
 
-       :language 'nu
-       :feature 'number
-       '((val_number)
-         @font-lock-number-face)
+   :language 'nu
+   :feature 'number
+   '((val_number)
+     @font-lock-number-face)
 
-       :language 'nu
-       :feature 'operator
-       `([,@nushell-ts-mode--operators] @font-lock-operator-face)
+   :language 'nu
+   :feature 'operator
+   `([,@nushell-ts-mode--operators] @font-lock-operator-face)
 
-       :language 'nu
-       :feature 'string
-       '((val_string) @font-lock-string-face)
+   :language 'nu
+   :feature 'string
+   '((val_string) @font-lock-string-face)
 
-       :language 'nu
-       :feature 'types
-       `([,@nushell-ts-mode--types] @font-lock-type-face)
+   :language 'nu
+   :feature 'types
+   `([,@nushell-ts-mode--types] @font-lock-type-face)
 
-       :language 'nu
-       :feature 'variable
-       '((val_variable) @font-lock-variable-use-face)
+   :language 'nu
+   :feature 'variable
+   '((val_variable) @font-lock-variable-use-face)
 
-       :language 'nu
-       :feature 'error
-       :override t
-       '((ERROR) @font-lock-warning-face)))
+   :language 'nu
+   :feature 'error
+   :override t
+   '((ERROR) @font-lock-warning-face))
+  "Font-lock settings for Nushell.")
 
 (define-derived-mode nushell-ts-mode prog-mode "NuShell"
   "Major mode for editing NuShell scripts."
