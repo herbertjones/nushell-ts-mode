@@ -8,6 +8,9 @@ A mode for Nushell that uses tree-sitter.
 * https://github.com/nushell/tree-sitter-nu
 * https://tree-sitter.github.io/tree-sitter/
 
+Warning: I just threw this together and haven't used it much yet. (2023-08-05)  Not yet polished.
+
+
 
 ## Features
 
