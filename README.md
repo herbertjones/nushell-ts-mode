@@ -19,7 +19,7 @@ A mode for Nushell that uses tree-sitter.
 
 ## Installation
 
-### Build nu-tree-sitter
+### Build tree-sitter-nu
 
 1. Run `treesit-install-language-grammar`
 2. Select "nu"
