@@ -2,7 +2,7 @@
 
 [![License GPL 3](https://img.shields.io/badge/license-GPL_3-green.svg)](http://www.gnu.org/licenses/gpl-3.0.txt)
 
-A mode for Nushell that uses tree-sitter.
+A mode for Nushell that uses tree-sitter. (treesit introduced in Emacs 29)
 
 * https://www.nushell.sh/
 * https://github.com/nushell/tree-sitter-nu
