@@ -114,6 +114,15 @@
     "table"
     "variable"))
 
+(defun nushell-ts-completions-at-point ()
+  "Completion for Nushell"
+  (let* ((bnds (bounds-of-thing-at-point 'symbol))
+         (start (car bnds))
+         (end (cdr bnds)))
+    (list start end
+          (append nushell-ts-mode--operators nushell-ts-mode--keywords nushell-ts-mode--types)
+          :exclusive 'no)))
+
 (defvar nushell-ts-mode--indent-rules
   `((nu
      ((node-is ")") parent-bol 0)
@@ -237,6 +246,8 @@ Return nil if there is no name or if NODE is not a defun node."
                 (append "{}()[]" electric-indent-chars))
     (setq-local electric-layout-rules
                 '((?\; . after) (?\{ . after) (?\} . before)))
+
+    (add-hook 'completion-at-point-functions 'nushell-ts-completions-at-point nil t)
 
     (treesit-major-mode-setup)))
 
