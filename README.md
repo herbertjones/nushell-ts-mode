@@ -10,6 +10,8 @@ A mode for Nushell that uses tree-sitter. (treesit introduced in Emacs 29)
 
 Warning: I just threw this together and haven't used it much yet. (2023-08-05)  Not yet polished.
 
+![example highlighting](images/sample.png)
+
 
 ## Features
 
@@ -19,8 +21,6 @@ Warning: I just threw this together and haven't used it much yet. (2023-08-05)  
   * Using completion-at-point-functions
   * Using known keywords
   * Simple variable completion using tree-sitter variable query
-
-![example highlighting](images/sample.png)
 
 
 ## Installation
