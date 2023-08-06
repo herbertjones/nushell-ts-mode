@@ -124,6 +124,7 @@
      ((parent-is "array") parent-bol nushell-ts-mode-indent-offset)
      ((parent-is "val_list") parent-bol nushell-ts-mode-indent-offset)
      ((parent-is "expr_parenthesized") parent-bol nushell-ts-mode-indent-offset)
+     ((parent-is "parameter_bracks") parent-bol nushell-ts-mode-indent-offset)
      (no-node parent-bol 0))))
 
 (defun nushell-ts-mode--defun-name (node)
