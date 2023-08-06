@@ -114,13 +114,36 @@
     "table"
     "variable"))
 
+(defun nushell-ts-mode--get-variable-names ()
+  "Get a list of variable names that are near point."
+  (interactive)
+  (unless (and (treesit-ready-p 'nu) (treesit-buffer-root-node))
+    (error "No treesitter node"))
+  (let ((node (treesit-node-at (point)))
+        (variable-names (list))
+        function-node)
+    (unless node
+      (error "No treesitter node"))
+
+    (cl-loop for examine-node = node then (treesit-node-parent examine-node)
+             while examine-node
+             do (let ((node-type (treesit-node-type examine-node)))
+                  (cond ((equal node-type "decl_def")
+                         (setq function-node examine-node)))))
+    (when function-node
+      (dolist (pair (treesit-query-capture function-node '((stmt_let (identifier) @name))))
+        (push (concat "$" (treesit-node-text (cdr pair) t))
+              variable-names)))
+    variable-names))
+
 (defun nushell-ts-completions-at-point ()
   "Completion for Nushell"
   (let* ((bnds (bounds-of-thing-at-point 'symbol))
          (start (car bnds))
          (end (cdr bnds)))
     (list start end
-          (append nushell-ts-mode--operators nushell-ts-mode--keywords nushell-ts-mode--types)
+          (append nushell-ts-mode--operators nushell-ts-mode--keywords nushell-ts-mode--types
+                  (ignore-errors (nushell-ts-mode--get-variable-names)))
           :exclusive 'no)))
 
 (defvar nushell-ts-mode--indent-rules
