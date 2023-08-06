@@ -35,7 +35,7 @@ Warning: I just threw this together and haven't used it much yet. (2023-08-05)  
 
 ### Install package
 
-You will need to clone the repo and load it manually or use whatever package manger you use.
+You will need to clone the repo and load it manually or use whatever package manager you use.
 
 ```emacs-lisp
 (straight-use-package
