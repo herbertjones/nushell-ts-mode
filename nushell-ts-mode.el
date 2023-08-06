@@ -230,10 +230,17 @@ Return nil if there is no name or if NODE is not a defun node."
    '((ERROR) @font-lock-warning-face))
   "Font-lock settings for Nushell.")
 
+(defvar nushell-ts-mode--syntax-table
+  (let ((synTable (make-syntax-table)))
+    (modify-syntax-entry ?# "<" synTable)
+    (modify-syntax-entry ?\n ">#" synTable)
+    synTable)
+  "Syntax table for `nushell-ts-mode'.")
+
 (define-derived-mode nushell-ts-mode prog-mode "NuShell"
   "Major mode for editing NuShell scripts."
   :group 'nushell
-  ;; :syntax-table nushell-ts-mode--syntax-table
+  :syntax-table nushell-ts-mode--syntax-table
   (when (treesit-ready-p 'nu)
     (treesit-parser-create 'nu)
 
