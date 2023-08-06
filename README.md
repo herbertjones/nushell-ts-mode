@@ -11,11 +11,14 @@ A mode for Nushell that uses tree-sitter. (treesit introduced in Emacs 29)
 Warning: I just threw this together and haven't used it much yet. (2023-08-05)  Not yet polished.
 
 
-
 ## Features
 
 * Syntax highlighting
 * Indentation
+* Completion 
+  * Using completion-at-point-functions
+  * Using known keywords
+  * Simple variable completion using tree-sitter variable query
 
 ![example highlighting](images/sample.png)
 
@@ -37,4 +40,17 @@ You will need to clone the repo and load it manually or use whatever package man
 ```emacs-lisp
 (straight-use-package
  '(nushell-ts-mode :type git :host github :repo "herbertjones/nushell-ts-mode"))
+```
+
+For instance, on my system I have:
+```emacs-lisp
+(use-package nushell-ts-mode
+  :straight (nushell-ts-mode :type git :host github :repo "herbertjones/nushell-ts-mode")
+  :config
+  (defun hfj/nushell/mode-hook ()
+    (corfu-mode 1)
+    (highlight-parentheses-mode 1)
+    (electric-pair-local-mode 1)
+    (electric-indent-local-mode 1))
+  (add-hook 'nushell-ts-mode-hook 'hfj/nushell/mode-hook))
 ```
