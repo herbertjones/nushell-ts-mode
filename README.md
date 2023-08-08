@@ -21,6 +21,9 @@ Warning: I just threw this together and haven't used it much yet. (2023-08-05)  
   * Using completion-at-point-functions
   * Using known keywords
   * Simple variable completion using tree-sitter variable query
+* Org babel integration
+  * Highlighting
+  * Execute source code blocks
 
 
 ## Installation
@@ -47,10 +50,18 @@ For instance, on my system I have:
 (use-package nushell-ts-mode
   :straight (nushell-ts-mode :type git :host github :repo "herbertjones/nushell-ts-mode")
   :config
+  (require 'nushell-ts-babel)
   (defun hfj/nushell/mode-hook ()
     (corfu-mode 1)
     (highlight-parentheses-mode 1)
     (electric-pair-local-mode 1)
     (electric-indent-local-mode 1))
   (add-hook 'nushell-ts-mode-hook 'hfj/nushell/mode-hook))
+
+(with-eval-after-load 'org-contrib
+    (org-babel-do-load-languages
+     'org-babel-load-languages
+     '((emacs-lisp . t)
+       ;; ...
+       (nushell . t))))
 ```
