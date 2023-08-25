@@ -10,13 +10,26 @@
   :type 'string
   :group 'nushell-ts-babel)
 
+(defun org-babel-variable-assignments:nushell (params)
+  "Return a list of Nushell const statements"
+  (mapcar
+   (lambda (pair)
+     (message "%s" (type-of pair))
+     (format "const %s = \"%s\""
+	     (car pair)
+	     (cdr pair)))
+   (org-babel--get-vars params)))
+
 ;; Define a function to execute code for your custom language
 (defun org-babel-execute:nushell (body params)
   "Execute a block of Nushell commands with Babel.
 This function is called by `org-babel-execute-src-block'."
-  (let* ((tmp-src-file (org-babel-temp-file "nushell-src-" ".nu")))
+  (let ((tmp-src-file (org-babel-temp-file "nushell-src-" ".nu"))
+        (full-body
+         (org-babel-expand-body:generic body params
+          (org-babel-variable-assignments:nushell params))))
     (with-temp-file tmp-src-file
-      (insert body))
+      (insert full-body))
     (let ((results (org-babel-eval (concat nushell-ts-babel-nu-path " --no-config-file " tmp-src-file) "")))
       (when results
         (setq results (org-trim (org-remove-indentation results)))
