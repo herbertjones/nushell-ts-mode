@@ -1,5 +1,7 @@
 ;;; nushell-ts-babel.el --- org babel support for Nushell  -*- lexical-binding: t; -*-
 
+(require 'ob-core)
+
 ;; Assuming your custom mode is defined in a file called 'my-mode.el'
 (require 'nushell-ts-mode)
 
