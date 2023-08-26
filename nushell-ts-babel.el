@@ -1,5 +1,6 @@
 ;;; nushell-ts-babel.el --- org babel support for Nushell  -*- lexical-binding: t; -*-
 
+(require 'org-src)
 (require 'ob-core)
 
 ;; Assuming your custom mode is defined in a file called 'my-mode.el'
@@ -14,7 +15,6 @@
   "Return a list of Nushell const statements"
   (mapcar
    (lambda (pair)
-     (message "%s" (type-of pair))
      (format "const %s = \"%s\""
 	     (car pair)
 	     (cdr pair)))
