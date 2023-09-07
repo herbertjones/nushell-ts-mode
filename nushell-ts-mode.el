@@ -114,6 +114,15 @@
     "table"
     "variable"))
 
+(defvar nushell-ts-mode--prettify-symbols-alist
+  '((">=" . ?≥)
+    ("<=" . ?≤)
+    ("!=" . ?≠)
+    ("->" . ?→)
+    ("=>" . ?⇒)
+    ("inf" . ?∞))
+  "Alist of symbol prettifications used for `prettify-symbols-alist'.")
+
 (defun nushell-ts-mode--get-variable-names ()
   "Get a list of variable names that are near point."
   (interactive)
@@ -271,6 +280,9 @@ Return nil if there is no name or if NODE is not a defun node."
                 `(("Variable" "\\`stmt_let\\'" nil nil)
                   ("Variable" "\\`assignment\\'" nil nil)
                   ("Function" "\\`decl_def\\'" nil nil)))
+
+    ;; Prettify
+    (setq-local prettify-symbols-alist nushell-ts-mode--prettify-symbols-alist)
 
     (setq-local electric-indent-chars
                 (append "{}()[]" electric-indent-chars))
