@@ -28,7 +28,7 @@
 
 ;;; Commentary:
 ;;
-;; A mode for Nushell that uses tree-sitter. (treesit introduced in Emacs 29)
+;; A mode for Nushell that uses tree-sitter.  (treesit introduced in Emacs 29)
 
 ;;; Code:
 
@@ -157,8 +157,8 @@
 
 ;;;###autoload
 (defun nushell-ts-completions-at-point ()
-  "Completion function for Nushell that provides completion
- suggestions at the current point."
+  "Completion function for Nushell.
+Provides completion suggestions at the current point."
   (let* ((bnds (bounds-of-thing-at-point 'symbol))
          (start (car bnds))
          (end (cdr bnds)))
