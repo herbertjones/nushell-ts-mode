@@ -1,4 +1,4 @@
-;;; nushell-ts-mode.el --- tree-sitter support for Nushell  -*- lexical-binding: t; -*-
+;;; nushell-ts-mode.el --- Tree-sitter support for Nushell  -*- lexical-binding: t; -*-
 
 ;; Copyright (C) 2022-2023 Free Software Foundation, Inc.
 
@@ -146,7 +146,7 @@
     variable-names))
 
 (defun nushell-ts-completions-at-point ()
-  "Completion for Nushell"
+  "Completion for Nushell."
   (let* ((bnds (bounds-of-thing-at-point 'symbol))
          (start (car bnds))
          (end (cdr bnds)))
