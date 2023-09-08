@@ -1,0 +1,45 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+    paths: ['*.el']
+  pull_request:
+    branches:
+      - main
+    paths: ['*.el']
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.emacs_version == 'snapshot' }}
+
+    strategy:
+      matrix:
+        emacs_version:
+        - 29.1
+        - snapshot
+
+    steps:
+      - name: Setup emacs
+        uses: purcell/setup-emacs@master
+        with:
+          version: ${{ matrix.emacs_version }}
+
+      - name: Install Eldev
+        uses: emacs-eldev/setup-eldev@v1
+
+      - uses: actions/checkout@v3
+
+      - name: Test the project
+        run: |
+          eldev -p -dtT -C test
+
+      - name: Ensure there are no byte-compilation warnings
+        run: |
+          eldev -dtT -C compile --set all --warnings-as-errors
+
+      - name: Lint the project
+        run: |
+          eldev -p -dtT -C lint
