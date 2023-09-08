@@ -8,9 +8,9 @@ A mode for Nushell that uses tree-sitter. (treesit introduced in Emacs 29)
 * https://github.com/nushell/tree-sitter-nu
 * https://tree-sitter.github.io/tree-sitter/
 
-Warning: I just threw this together and haven't used it much yet. (2023-08-05)  Not yet polished.
-
 ![example highlighting](images/sample.png)
+
+As of 2023-09-08 [nushell-ts-babel](https://github.com/herbertjones/nushell-ts-babel) moved to separate repository.
 
 
 ## Features
@@ -57,11 +57,4 @@ For instance, on my system I have:
     (electric-pair-local-mode 1)
     (electric-indent-local-mode 1))
   (add-hook 'nushell-ts-mode-hook 'hfj/nushell/mode-hook))
-
-(with-eval-after-load 'org-contrib
-    (org-babel-do-load-languages
-     'org-babel-load-languages
-     '((emacs-lisp . t)
-       ;; ...
-       (nushell . t))))
 ```
