@@ -145,6 +145,7 @@
               variable-names)))
     variable-names))
 
+;;;###autoload
 (defun nushell-ts-completions-at-point ()
   "Completion for Nushell."
   (let* ((bnds (bounds-of-thing-at-point 'symbol))
@@ -246,6 +247,7 @@ Return nil if there is no name or if NODE is not a defun node."
     synTable)
   "Syntax table for `nushell-ts-mode'.")
 
+;;;###autoload
 (define-derived-mode nushell-ts-mode prog-mode "NuShell"
   "Major mode for editing NuShell scripts."
   :group 'nushell
