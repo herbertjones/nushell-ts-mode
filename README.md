@@ -1,5 +1,6 @@
 # Nushell Tree-Sitter mode
 
+[![GNU Emacs](https://img.shields.io/static/v1?logo=gnuemacs&logoColor=fafafa&label=Made%20for&message=GNU%20Emacs&color=7F5AB6)](https://www.gnu.org/software/emacs/)
 [![MELPA](https://melpa.org/packages/nushell-ts-mode-badge.svg)](https://melpa.org/#/nushell-ts-mode)
 [![License GPL 3](https://img.shields.io/badge/license-GPL_3-green.svg)](http://www.gnu.org/licenses/gpl-3.0.txt)
 [![Build Status](https://img.shields.io/github/actions/workflow/status/herbertjones/nushell-ts-mode/ci.yml)](https://github.com/herbertjones/nushell-ts-mode/actions/workflows/ci.yml?query=branch%3Amain)
