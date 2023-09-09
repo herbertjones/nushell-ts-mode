@@ -1,7 +1,7 @@
 # Nushell Tree-Sitter mode
 
 [![License GPL 3](https://img.shields.io/badge/license-GPL_3-green.svg)](http://www.gnu.org/licenses/gpl-3.0.txt)
-[![Build Status](https://img.shields.io/github/actions/workflow/status/herbertjones/nushell-ts-mode/ci.yml)](https://github.com/herbertjones/nushell-ts-mode/actions/workflows/ci.yml?query=branch%3Aci)
+[![Build Status](https://img.shields.io/github/actions/workflow/status/herbertjones/nushell-ts-mode/ci.yml)](https://github.com/herbertjones/nushell-ts-mode/actions/workflows/ci.yml?query=branch%3Amain)
 
 A mode for Nushell that uses tree-sitter. (treesit introduced in Emacs 29)
 
