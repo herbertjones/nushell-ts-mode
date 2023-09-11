@@ -1,6 +1,6 @@
 ;;; nushell-ts-mode.el --- Tree-sitter support for Nushell  -*- lexical-binding: t; -*-
 
-;; Copyright (C) 2022-2023 Free Software Foundation, Inc.
+;; Copyright (C) 2023 Herbert Jones
 
 ;; Author     : Herbert Jones <jones.herbert@gmail.com>
 ;; Maintainer : Herbert Jones <jones.herbert@gmail.com>
