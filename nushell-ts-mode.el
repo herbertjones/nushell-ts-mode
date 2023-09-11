@@ -342,7 +342,7 @@ Return nil if there is no name or if NODE is not a defun node."
 
     ;; Adding a hook to enable completion at point functionality in the major
     ;; mode
-    (add-hook 'completion-at-point-functions 'nushell-ts-completions-at-point nil t)
+    (add-hook 'completion-at-point-functions #'nushell-ts-completions-at-point nil t)
 
     ;; Final setup for the major mode using tree-sitter
     (treesit-major-mode-setup)))
