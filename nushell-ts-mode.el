@@ -194,7 +194,10 @@ Provides completion suggestions at the current point."
      ((parent-is "array") parent-bol nushell-ts-mode-indent-offset)
 
      ;; Define indentation rules for list values
-     ((parent-is "val_list") parent-bol nushell-ts-mode-indent-offset)
+     ((parent-is "list_body") parent-bol nushell-ts-mode-indent-offset)
+
+     ;; Define indentation rules for record values
+     ((parent-is "record_body") parent-bol nushell-ts-mode-indent-offset)
 
      ;; Define indentation rules for expressions enclosed in parentheses
      ((parent-is "expr_parenthesized") parent-bol nushell-ts-mode-indent-offset)
