@@ -86,8 +86,7 @@
   '("alias"
     "def"
     "let"
-    "mut"
-    "source"))
+    "mut"))
 
 (defvar nushell-ts-mode--types
   '("any"
